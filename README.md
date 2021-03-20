@@ -1,24 +1,28 @@
-# find-a-coach
+# Find a Coach
+This is a Vue.js application built to learn how to create a fullstack application with Vue.js, Vuex, Vue Router and Firebase.
 
-## Project setup
+## Live Site
+
+The live site can be accessed at [this website][website]...
+
+[website]: https://find-a-coach.s3.co.ke/
+
+## Project Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and Hot-Reloads for Development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compiles and Minifies for Production
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Lints and Fixes Files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
