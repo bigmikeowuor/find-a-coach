@@ -1,5 +1,5 @@
 <template>
-	<div>REQUESTS</div>
+	<div>Requests</div>
 </template>
 
 <script>

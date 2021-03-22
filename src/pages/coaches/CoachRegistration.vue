@@ -1,5 +1,5 @@
 <template>
-	<div>REGISTER AS A COACH</div>
+	<div>Register as a Coach</div>
 </template>
 
 <script>
