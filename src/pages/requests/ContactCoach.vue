@@ -9,7 +9,7 @@
 			<textarea rows="5" id="message" v-model.trim="message"></textarea>
 		</div>
 		<p class="errors" v-if="!formIsValid">
-			Please enter a valid email address or a message in the space provided.
+			Please enter a valid email address or a message in the space(s) provided.
 		</p>
 		<div class="actions">
 			<base-button>Send Message</base-button>
@@ -35,6 +35,14 @@ export default {
 				this.formIsValid = false;
 				return;
 			}
+
+			this.$store.dispatch('requests/contactCoach', {
+				email: this.email,
+				message: this.message,
+				coachId: this.$route.params.id,
+			});
+
+			this.$router.replace('/coaches');
 		},
 	},
 };
