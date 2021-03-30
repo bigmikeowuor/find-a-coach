@@ -1,1 +1,34 @@
-export default {};
+export default {
+	signin() {},
+
+	async signup(context, payload) {
+		const response = await fetch(
+			'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC3Ge6zVNJGu7F7x4gs0JNwa9sAhkCwVtQ',
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					email: payload.email,
+					password: payload.password,
+					returnSecureToken: true,
+				}),
+			}
+		);
+
+		const responseData = await response.json();
+
+		if (!response.ok) {
+			console.log(responseData);
+
+			const error = new Error(responseData.message || 'Failed to sign up.');
+
+			throw error;
+		}
+
+		console.table(responseData);
+		context.commit('setUser', {
+			token: responseData.idToken,
+			userId: responseData.localId,
+			tokenExpiration: responseData.expiresIn,
+		});
+	},
+};
