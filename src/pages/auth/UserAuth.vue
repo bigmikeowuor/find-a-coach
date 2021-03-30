@@ -1,21 +1,29 @@
 <template>
-	<base-card>
-		<form @submit.prevent="submitForm">
-			<div class="form-control">
-				<label for="email">E-mail</label>
-				<input type="email" id="email" v-model.trim="email" />
-			</div>
-			<div class="form-control">
-				<label for="password">Password</label>
-				<input type="password" id="password" v-model.trim="password" />
-			</div>
-			<p v-if="!formIsValid">Please enter a valid email and password combination.</p>
-			<base-button>{{ submitButtonCaption }}</base-button>
-			<base-button type="button" mode="flat" @click="switchAuthMode">
-				{{ switchModeButtonCaption }}
-			</base-button>
-		</form>
-	</base-card>
+	<div>
+		<base-dialog :show="!!error" title="Error Condition" @close="handleError">
+			<p>{{ error }}</p>
+		</base-dialog>
+		<base-dialog :show="isLoading" title="Authenticating" fixed>
+			<base-spinner></base-spinner>
+		</base-dialog>
+		<base-card>
+			<form @submit.prevent="submitForm">
+				<div class="form-control">
+					<label for="email">E-mail</label>
+					<input type="email" id="email" v-model.trim="email" />
+				</div>
+				<div class="form-control">
+					<label for="password">Password</label>
+					<input type="password" id="password" v-model.trim="password" />
+				</div>
+				<p v-if="!formIsValid">Please enter a valid email and password combination.</p>
+				<base-button>{{ submitButtonCaption }}</base-button>
+				<base-button type="button" mode="flat" @click="switchAuthMode">
+					{{ switchModeButtonCaption }}
+				</base-button>
+			</form>
+		</base-card>
+	</div>
 </template>
 
 <script>
@@ -26,11 +34,13 @@ export default {
 			password: '',
 			formIsValid: true,
 			mode: 'signin',
+			isLoading: false,
+			error: null,
 		};
 	},
 
 	methods: {
-		submitForm() {
+		async submitForm() {
 			this.formIsValid = true;
 
 			if (this.email === '' || !this.email.includes('@') || this.password.length < 6) {
@@ -38,14 +48,22 @@ export default {
 				return;
 			}
 
-			if (this.mode === 'signin') {
-				// ...
-			} else {
-				this.$store.dispatch('signup', {
-					email: this.email,
-					password: this.password,
-				});
+			this.isLoading = true;
+
+			try {
+				if (this.mode === 'signin') {
+					// ...
+				} else {
+					await this.$store.dispatch('signup', {
+						email: this.email,
+						password: this.password,
+					});
+				}
+			} catch (err) {
+				this.error = err.message || 'The authentication process failed.';
 			}
+
+			this.isLoading = false;
 		},
 
 		switchAuthMode() {
@@ -54,6 +72,10 @@ export default {
 			} else {
 				this.mode = 'signin';
 			}
+		},
+
+		handleError() {
+			this.error = null;
 		},
 	},
 
