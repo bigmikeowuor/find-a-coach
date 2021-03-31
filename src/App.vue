@@ -11,8 +11,22 @@ export default {
 		TheHeader,
 	},
 
+	computed: {
+		verifiedAutoSignout() {
+			return this.$store.getters.verifiedAutoSignout;
+		},
+	},
+
 	created() {
 		this.$store.dispatch('autoSignin');
+	},
+
+	watch: {
+		verifiedAutoSignout(currentValue, previousValue) {
+			if (currentValue && currentValue !== previousValue) {
+				this.$router.replace('/coaches');
+			}
+		},
 	},
 };
 </script>

@@ -10,4 +10,8 @@ export default {
 	isAuthenticated(state) {
 		return !!state.token;
 	},
+
+	verifiedAutoSignout(state) {
+		return state.verifiedAutoSignout;
+	},
 };
