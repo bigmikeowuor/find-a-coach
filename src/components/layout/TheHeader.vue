@@ -4,14 +4,21 @@
 			<h1><router-link to="/">Find a Coach</router-link></h1>
 			<ul>
 				<li><router-link to="/coaches">All Coaches</router-link></li>
-				<li><router-link to="/requests">Requests</router-link></li>
+				<li v-if="isSignedIn"><router-link to="/requests">Requests</router-link></li>
+				<li v-else><router-link to="/auth">Sign In</router-link></li>
 			</ul>
 		</nav>
 	</header>
 </template>
 
 <script>
-export default {};
+export default {
+	computed: {
+		isSignedIn() {
+			return this.$store.getters.isAuthenticated;
+		},
+	},
+};
 </script>
 
 <style scoped>
