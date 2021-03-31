@@ -6,6 +6,7 @@
 				<li><router-link to="/coaches">All Coaches</router-link></li>
 				<li v-if="isSignedIn"><router-link to="/requests">Requests</router-link></li>
 				<li v-else><router-link to="/auth">Sign In</router-link></li>
+				<li v-if="isSignedIn"><base-button @click="signOut">Sign Out</base-button></li>
 			</ul>
 		</nav>
 	</header>
@@ -13,6 +14,12 @@
 
 <script>
 export default {
+	methods: {
+		signOut() {
+			this.$store.dispatch('signout');
+		},
+	},
+
 	computed: {
 		isSignedIn() {
 			return this.$store.getters.isAuthenticated;
