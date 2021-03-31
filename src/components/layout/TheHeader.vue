@@ -17,6 +17,7 @@ export default {
 	methods: {
 		signOut() {
 			this.$store.dispatch('signout');
+			this.$router.replace('/coaches');
 		},
 	},
 
