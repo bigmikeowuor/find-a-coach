@@ -19,11 +19,11 @@ export default {
 		const mode = payload.mode;
 
 		let url =
-			'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC3Ge6zVNJGu7F7x4gs0JNwa9sAhkCwVtQ';
+			'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCQJTzIsfr1uf96havMT41p9tavVts6rcU';
 
 		if (mode === 'signup') {
 			url =
-				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC3Ge6zVNJGu7F7x4gs0JNwa9sAhkCwVtQ';
+				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCQJTzIsfr1uf96havMT41p9tavVts6rcU';
 		}
 
 		const response = await fetch(url, {
